@@ -15,8 +15,6 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl
     networks:
       - server-network
-    depends_on:
-      - php-fpm
     ports:
       - "80:80"
       - "443:443"
