@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        - CHANGE_SOURCE=true
+    container_name: nginx
+    restart: always
+    volumes:
+      - ./nginx/log:/var/log/nginx
+      - ./nginx/site.conf:/etc/nginx/sites-available
+      - ./nginx/ssl:/etc/nginx/ssl
+    networks:
+      - server-network
+    depends_on:
+      - php-fpm
+    ports:
+      - "80:80"
+      - "443:443"
+
+  portainer:
+    image:  portainer/portainer
+    container_name: portainer
+    restart: always
+    ports:
+      - "9001:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer/data:/data
+
+networks:
+  server-network:
