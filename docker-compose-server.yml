@@ -39,13 +39,13 @@ services:
 #      - type: bind
 #        source: "./nginxWebUI"
 #        target: "./nginxWebUI"
-#    environment:
-#      BOOT_OPTIONS: "--server.port=8081"
+    environment:
+      BOOT_OPTIONS: "--server.port=8081"
     privileged: true
 #    network_mode: "host"
     ports:
       - '80:80'
-      - '8081:8080'
+      - '8081:8081'
       - '8082:8082'
       - '443:443'
 
