@@ -35,13 +35,19 @@ services:
   nginxWebUi-server:
     image: cym1102/nginxwebui:latest
     volumes:
-      - type: bind
-        source: "./nginxWebUI"
-        target: "./nginxWebUI"
-    environment:
-      BOOT_OPTIONS: "--server.port=8081"
+      - ./nginxWebUI:/home/nginxWebUI
+#      - type: bind
+#        source: "./nginxWebUI"
+#        target: "./nginxWebUI"
+#    environment:
+#      BOOT_OPTIONS: "--server.port=8081"
     privileged: true
-    network_mode: "host"
+#    network_mode: "host"
+    ports:
+      - '80:80'
+      - '8081:8080'
+      - '8082:8082'
+      - '443:443'
 
   portainer:
     image:  portainer/portainer
