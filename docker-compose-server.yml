@@ -1,23 +1,36 @@
 version: "3"
 
 services:
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-      args:
-        - CHANGE_SOURCE=true
-    container_name: nginx
-    restart: always
-    volumes:
-      - ./nginx/log:/var/log/nginx
-      - ./nginx/site.conf:/etc/nginx/sites-available
-      - ./nginx/ssl:/etc/nginx/ssl
-    networks:
-      - server-network
+#  nginx:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+#      args:
+#        - CHANGE_SOURCE=true
+#    container_name: nginx
+#    #image: docker-ss/nginx:latest ##定义<build image name>
+#    restart: always
+#    volumes:
+#      - ./nginx/log:/var/log/nginx
+#      - ./nginx/site.conf:/etc/nginx/sites-available
+#      - ./nginx/ssl:/etc/nginx/ssl
+#    networks:
+#      - server-network
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#      - "8081:8081"
+
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '8081:8081'
+      - '443:443'
+    volumes:
+      - ./nginx-proxy-manager/data:/data
+      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
 
   portainer:
     image:  portainer/portainer
