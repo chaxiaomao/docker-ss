@@ -21,33 +21,17 @@ services:
 #      - "443:443"
 #      - "8081:8081"
 
-#  nginx-proxy-manager:
-#    image: 'jc21/nginx-proxy-manager:latest'
-#    restart: unless-stopped
-#    ports:
-#      - '80:80'
-#      - '8081:81'
-#      - '443:443'
-#    volumes:
-#      - ./nginx-proxy-manager/data:/data
-#      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
-
-  nginxWebUi-server:
-    image: cym1102/nginxwebui:latest
-    volumes:
-      - ./nginxWebUI:/home/nginxWebUI
-#      - type: bind
-#        source: "./nginxWebUI"
-#        target: "./nginxWebUI"
-    environment:
-      BOOT_OPTIONS: "--server.port=8081"
-    privileged: true
-#    network_mode: "host"
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
     ports:
       - '80:80'
-      - '8081:8081'
+      - '8081:81'
       - '8082:8082'
       - '443:443'
+    volumes:
+      - ./nginx-proxy-manager/data:/data
+      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
 
   portainer:
     image:  portainer/portainer
