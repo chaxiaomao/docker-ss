@@ -5,8 +5,8 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     restart: always
-    networks:
-      - data-network
+#    networks:
+#      - data-network
     depends_on:
       - mysql
       #- memcached
@@ -35,8 +35,8 @@ services:
       - TZ=UTC
     volumes:
       - ./mysql/data:/var/lib/mysql
-    networks:
-      - data-network
+#    networks:
+#      - data-network
     ports:
       - "3306:3306"
 
