@@ -5,8 +5,8 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     restart: always
-#    networks:
-#      - data-network
+    networks:
+      - data-network
     depends_on:
       - mysql
       #- memcached
@@ -35,8 +35,8 @@ services:
       - TZ=UTC
     volumes:
       - ./mysql/data:/var/lib/mysql
-#    networks:
-#      - data-network
+    networks:
+      - data-network
     ports:
       - "3306:3306"
 
@@ -47,8 +47,8 @@ services:
     command: redis-server --requirepass shanchuang2023A.
     volumes:
       - ./redis/data:/data
-#    networks:
-#      - data-network
+    networks:
+      - data-network
     ports:
       - "6379:6379"
 
@@ -62,8 +62,8 @@ services:
       REDIS_1_NAME: root
       REDIS_1_AUTH: shanchuang2023A.
       LOGIN_ENABLED: "true"
-#    networks:
-#      - data-network
+    networks:
+      - data-network
     ports:
       - "9002:80"
 
@@ -75,5 +75,5 @@ services:
 #    expose:
 #      - "11211"
 
-#networks:
-#  data-network:
+networks:
+  data-network:
