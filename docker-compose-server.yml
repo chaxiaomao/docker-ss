@@ -44,5 +44,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./portainer/data:/data
 
-networks:
-  server-network:
+#networks:
+#  server-network:

@@ -13,20 +13,20 @@ services:
     ports:
       - "8080:80"
     links:
-      - mysql5.6
+      - mysql
     environment:
       PMA_ARBITRARY: 1
     #  PMA_HOST: mysql
     #  PMA_USER: root
     #  PMA_PASSWORD: root
 
-  mysql5.6:
-    image: mysql:5.6
+  mysql:
+    image: mysql:8.0
     container_name: mysql
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      - MYSQL_ROOT_PASSWORD=6QuxctkQsnX.bGW # root管理员用户密码 用户名默认root
+      - MYSQL_ROOT_PASSWORD=shanchuang2023A. # root管理员用户密码 用户名默认root
       #MYSQL_DEV_USER: developer   # 创建developer用户
       #MYSQL_DEV_PASSWORD: developer  # 设置developer用户的密码
       #- MYSQL_DATABASE=developer
@@ -44,11 +44,11 @@ services:
     image: redis:5.0-alpine
     container_name: redis
     restart: always
-    command: redis-server --requirepass 6QuxctkQsnX.bGW
+    command: redis-server --requirepass shanchuang2023A.
     volumes:
       - ./redis/data:/data
-    networks:
-      - data-network
+#    networks:
+#      - data-network
     ports:
       - "6379:6379"
 
@@ -60,10 +60,10 @@ services:
     environment:
       REDIS_1_HOST: redis
       REDIS_1_NAME: root
-      REDIS_1_AUTH: 6QuxctkQsnX.bGW
+      REDIS_1_AUTH: shanchuang2023A.
       LOGIN_ENABLED: "true"
-    networks:
-      - data-network
+#    networks:
+#      - data-network
     ports:
       - "9002:80"
 
@@ -75,5 +75,5 @@ services:
 #    expose:
 #      - "11211"
 
-networks:
-  data-network:
+#networks:
+#  data-network:
