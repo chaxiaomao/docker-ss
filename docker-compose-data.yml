@@ -5,8 +5,6 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     restart: always
-    networks:
-      - data-network
     depends_on:
       - mysql
       #- memcached
@@ -16,6 +14,7 @@ services:
       - mysql
     environment:
       PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 100M
     #  PMA_HOST: mysql
     #  PMA_USER: root
     #  PMA_PASSWORD: root
@@ -26,7 +25,7 @@ services:
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      - MYSQL_ROOT_PASSWORD=shanchuang2023A. # root管理员用户密码 用户名默认root
+      - MYSQL_ROOT_PASSWORD=123456 # root管理员用户密码 用户名默认root
       #MYSQL_DEV_USER: developer   # 创建developer用户
       #MYSQL_DEV_PASSWORD: developer  # 设置developer用户的密码
       #- MYSQL_DATABASE=developer
@@ -35,8 +34,6 @@ services:
       - TZ=UTC
     volumes:
       - ./mysql/data:/var/lib/mysql
-    networks:
-      - data-network
     ports:
       - "3306:3306"
 
@@ -44,11 +41,9 @@ services:
     image: redis:5.0-alpine
     container_name: redis
     restart: always
-    command: redis-server --requirepass shanchuang2023A.
+    command: redis-server --requirepass 123456
     volumes:
       - ./redis/data:/data
-    networks:
-      - data-network
     ports:
       - "6379:6379"
 
@@ -62,10 +57,29 @@ services:
       REDIS_1_NAME: root
       REDIS_1_AUTH: shanchuang2023A.
       LOGIN_ENABLED: "true"
-    networks:
-      - data-network
     ports:
       - "9002:80"
+
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx-proxy-manager/data:/data
+      - ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+
+  portainer:
+      image: portainer/portainer
+      container_name: portainer
+      restart: always
+      ports:
+        - "9001:9000"
+      command: -H unix:///var/run/docker.sock
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./portainer/data:/data
 
 #  memcached:
 #    image: memcached
@@ -74,6 +88,3 @@ services:
 #      - data-network
 #    expose:
 #      - "11211"
-
-networks:
-  data-network:
