@@ -27,7 +27,7 @@ services:
     ports:
       - '80:80'
       - '8081:81'
-      - '8082:8082'
+      #- '8082:8082'
       - '443:443'
     volumes:
       - ./nginx-proxy-manager/data:/data

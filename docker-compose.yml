@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql5.7
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=6QuxctkQsnX.bGW # root管理员用户密码 用户名默认root
+      #MYSQL_DEV_USER: developer   # 创建developer用户
+      #MYSQL_DEV_PASSWORD: developer  # 设置developer用户的密码
+      #- MYSQL_DATABASE=developer
+      #- MYSQL_USER=${MYSQL_USER}
+      #- MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - TZ=UTC
+    volumes:
+      - ./mysql5.7/data:/var/lib/mysql
+    ports:
+      - "3306:3306"

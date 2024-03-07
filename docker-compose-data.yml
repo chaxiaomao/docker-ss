@@ -16,6 +16,7 @@ services:
       - mysql
     environment:
       PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 80M
     #  PMA_HOST: mysql
     #  PMA_USER: root
     #  PMA_PASSWORD: root
